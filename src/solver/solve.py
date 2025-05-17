@@ -29,12 +29,12 @@ def solve(n: int, m: int, c: np.ndarray, A: np.ndarray, b: np.ndarray):
         _c = np.copy(c)
         _c = np.delete(_c, comb)
 
-        total += 1
-
         try:
             x = np.linalg.solve(_A, b)
         except np.linalg.LinAlgError:
             continue
+
+        total += 1
 
         valid = (x >= 0).all()
 
