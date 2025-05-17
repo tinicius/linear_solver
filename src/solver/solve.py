@@ -23,11 +23,8 @@ def solve(n: int, m: int, c: np.ndarray, A: np.ndarray, b: np.ndarray):
     best_x = None
 
     for comb in combinations(range(n), n - m):
-        _A = np.copy(A)
-        _A = np.delete(_A, comb, axis=1)
 
-        _c = np.copy(c)
-        _c = np.delete(_c, comb)
+        _A = np.delete(A, comb, axis=1)
 
         try:
             x = np.linalg.solve(_A, b)
@@ -47,10 +44,12 @@ def solve(n: int, m: int, c: np.ndarray, A: np.ndarray, b: np.ndarray):
             invalid_count += 1
             valid_text = "inviável"
 
+        _c = np.delete(c, comb)
+
         z = np.dot(_c, x)
 
-        for i in range(len(comb)):
-            x = np.insert(x, comb[i], 0)
+        for bi in comb:
+            x = np.insert(x, bi, 0)
 
         if valid and z < best:
             best = z
